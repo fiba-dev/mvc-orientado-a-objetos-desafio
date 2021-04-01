@@ -59,6 +59,8 @@ save()
 getOneById(id:number)
 {  
  let encontrado=this.contactos.find(n=>n.id==id);
+ if(encontrado==undefined)
+     return this.getAll();
 
 return encontrado;
 }

@@ -1,6 +1,13 @@
 import { ContactsCollection } from "./models";
 
 export class ContactsControllerOptions {
+    constructor(action,params)
+    {  this.action=action;
+      this.params=params;
+       
+
+    }
+
   action: "get" | "save";
   params: any;
 }
@@ -14,16 +21,21 @@ class ContactsController {
   processOptions(options: ContactsControllerOptions) {
     if(options.action=="get")
     {  
-      if(options.params=="id")
-         return this.contacts.getOneById(options.params.id)
+      if(typeof options.params== "number")
+         return this.contacts.getOneById(options.params)
+            else 
+                return this.contacts.getAll();
+         
+             
         
     }
     if(options.action=="save")
-    {
-      options.params.save()
+    { this.contacts.addOne(options.params);
+      this.contacts.save();
+     
 
     }
-    
+    return this.contacts.getAll();
   }
 }
 export { ContactsController };
